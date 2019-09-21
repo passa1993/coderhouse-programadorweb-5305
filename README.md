@@ -28,7 +28,7 @@ El curso incluye documentación y videos dentro de la plataforma, pero también 
 2. En la consola posicionense en la carpeta donde van a guardar las clases, haciendo cd `<Nombre de la carpeta donde van a guardar el curso>`.
 3. Clonen el repositorio en su maquina local usando el comando `git clone <URL_del_repositorio en_su_GitHub>`.
 4. Entren al repositorio haciendo `cd coderhouse-programadorweb-5305`. 
-5. Luego ejecuten el comando `git remote add profe [https://github.com/mpetrinidev/coderhouse-programadorweb-5305](https://github.com/mpetrinidev/coderhouse-programadorweb-5305)` para vincular su repo con el mio.
+5. Luego ejecuten el comando `git remote add profe https://github.com/mpetrinidev/coderhouse-programadorweb-5305` para vincular su repo con el mio.
 6. Verifiquen que tienen agregados los dos origines con el comando `git remote -v`.
 7. Cada vez que quieran actualizar el repositorio con lo que subí hagan un `git pull profe master`.
 8. Para subir sus cambios usen los mismos comandos que usan siempre `git add .`, `git commit -m "<Comentario>"` y `git push`, los cambios solo se van a subir en su repositorio de GitHub.
