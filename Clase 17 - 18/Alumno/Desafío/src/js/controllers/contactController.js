@@ -1,30 +1,28 @@
-var listaAlumnos = [];
+
+
+
+
+var listaAlumnos= [];
 
 var dni = document.getElementById ('dniInput');
 var nombre = document.getElementById ('nombreInput');
 var apellido = document.getElementById('apellidoInput');
 var email = document.getElementById('email');
-var botonAgregar = document.getElementById('addStudentButton');
-
-var dniAEliminar = document.getElementById('deleteDni')
-var botonEliminar = document.getElementById('deleteStudentButton')
-
+var boton = document.getElementById('addStudentButton')
 var tablaDeNombres = document.getElementById('bodyTable')
+
 
 dni.onblur = validarDNI;
 nombre.onblur = validarNombre;
 apellido.onblur = validarApellido;
 email.onblur = validarEmail;
-botonAgregar.onclick = clickearBoton
-botonEliminar.onclick = borrarAlumno
-
-bajarLocalStorage()
-
+boton.onclick = clickearBoton
 
 function habilitarBoton() {
+    
     if (dni.className === 'form-control is-valid' && nombre.className === 'form-control is-valid' & apellido.className === 'form-control is-valid' & email.className === 'form-control is-valid')
     {
-        botonAgregar.disabled = false;
+        boton.disabled = false;
         return true
     } else {
         true;
@@ -100,90 +98,70 @@ function clickearBoton() {
             email: email.value,
         }
         if (existeDniEnListaAlumnos(nuevoAlumno.dni) == false) {
+        
+        listaAlumnos.push(nuevoAlumno)
+        
+        let tr = document.createElement('tr');
+        
+        tr.id = dni.value;
 
-            listaAlumnos.push(nuevoAlumno)
+        let tdNombre = document.createElement('td');
+        tdNombre.innerHTML = nombre.value;
+        tr.appendChild (tdNombre);
 
-            let tr = document.createElement('tr');
+        let tdApellido = document.createElement('td');
+        tdApellido.innerHTML = apellido.value;
+        tr.appendChild (tdApellido);
 
-            tr.id = dni.value;
+        let tdDNI = document.createElement('td');
+        tdDNI.innerHTML = dni.value;
+        tr.appendChild (tdDNI);
+       
+        let tdEmail = document.createElement('td');
+        tdEmail.innerHTML = email.value;
+        tr.appendChild (tdEmail);
 
-            let tdNombre = document.createElement('td');
-            tdNombre.innerHTML = nombre.value;
-            tr.appendChild (tdNombre);
+        tablaDeNombres.appendChild(tr);
 
-            let tdApellido = document.createElement('td');
-            tdApellido.innerHTML = apellido.value;
-            tr.appendChild (tdApellido);
-
-            let tdDNI = document.createElement('td');
-            tdDNI.innerHTML = dni.value;
-            tr.appendChild (tdDNI);
-
-            let tdEmail = document.createElement('td');
-            tdEmail.innerHTML = email.value;
-            tr.appendChild (tdEmail);
-
-            tablaDeNombres.appendChild(tr);
-
-            actualizarLocalStorage()
+        var stringifyListaAlumnos = JSON.stringify(listaAlumnos);
+        localStorage.setItem('listaAlumnos', stringifyListaAlumnos);
         }
     }
 }
 
-function borrarAlumno() {
+function bajarLocalStorage() {
+        alumnoLocalStorage = localStorage.getItem('listaAlumnos');
+        parseAlumnoLocalStorage = JSON.parse(alumnoLocalStorage);
+    if (alumnoLocalStorage !== null) {
+        
+        for (let i = 0; i < alumnoLocalStorage.length; i++) {
+            const alumno = alumnoLocalStorage[i];
+            
+            let tr = document.createElement('tr');       
+            
+            tr.id = alumno.dni;
+            
+            let tdNombre = document.createElement('td');
+            tdNombre.innerHTML = alumno.nombre;
+            tr.appendChild (tdNombre);
 
-  listaAlumnos = listaAlumnos.filter(function(elem) {
-    return elem.dni != dniAEliminar.value
-  })
+            let tdApellido = document.createElement('td');
+            tdApellido.innerHTML = alumno.apellido;
+            tr.appendChild (tdApellido);
 
-  
-  armarTablaDeAlumnos()
-
-  actualizarLocalStorage()
-}
-
-function armarTablaDeAlumnos() {
-  
-    tablaDeNombres.innerHTML = ''
-
-    for (let i = 0; i < listaAlumnos.length; i++) {
-        const alumno = listaAlumnos[i];
-
-        let tr = document.createElement('tr');
-        tr.id = alumno.dni;
-
-        let tdNombre = document.createElement('td');
-        tdNombre.innerHTML = alumno.nombre;
-        tr.appendChild(tdNombre);
-
-        let tdApellido = document.createElement('td');
-        tdApellido.innerHTML = alumno.apellido;
-        tr.appendChild(tdApellido);
-
-        let tdDNI = document.createElement('td');
-        tdDNI.innerHTML = alumno.dni;
-        tr.appendChild(tdDNI);
-
-        let tdEmail = document.createElement('td');
-        tdEmail.innerHTML = alumno.email;
-        tr.appendChild(tdEmail);
+            let tdDNI = document.createElement('td');
+            tdDNI.innerHTML = alumno.dni;
+            tr.appendChild (tdDNI);
+        
+            let tdEmail = document.createElement('td');
+            tdEmail.innerHTML = alumno.email;
+            tr.appendChild (tdEmail);
 
         tablaDeNombres.appendChild(tr);
+           
+        }
+  
     }
 }
 
-
-function actualizarLocalStorage() {
-  var stringifyListaAlumnos = JSON.stringify(listaAlumnos);
-  localStorage.setItem('listaAlumnos', stringifyListaAlumnos);
-}
-
-function bajarLocalStorage() {
-    alumnoLocalStorage = localStorage.getItem('listaAlumnos');
-    parseAlumnoLocalStorage = JSON.parse(alumnoLocalStorage);
-    console.log(parseAlumnoLocalStorage)
-    if (alumnoLocalStorage !== null) {
-        listaAlumnos = parseAlumnoLocalStorage
-        armarTablaDeAlumnos()
-    }
-}
+export default contactController;
