@@ -1,15 +1,14 @@
-
+function contactController() {
 
 var nombre = document.getElementById ('firstName');
 var email = document.getElementById('email');
 var boton = document.getElementById('submitButton')
 var comments = document.getElementById('comments')
 
-
 nombre.onblur = validarNombre;
 email.onblur = validarEmail;
-boton.onclick = clickearBoton;
 comments.onblur = validarComments;
+
 
 function habilitarBoton() {
     
@@ -28,8 +27,8 @@ function validarNombre(event) {
     if (value.length === 0) {
         event.target.className = 'form-control is-invalid';
 
-   } else {
-       event.target.className = 'form-control is-valid'
+} else {
+    event.target.className = 'form-control is-valid';
     }
     habilitarBoton()
 }
@@ -38,8 +37,8 @@ function validarComments(event) {
     var value = event.target.value;
     if (value.length === 0) {
         event.target.className = 'form-control is-invalid';
-   } else {
-       event.target.className = 'form-control is-valid';
+} else {
+    event.target.className = 'form-control is-valid';
     }
     habilitarBoton()
 }
@@ -48,11 +47,14 @@ function validarEmail(event) {
     var value = event.target.value;
     if (value.length === 0 || value.indexOf('@') === -1 || value.indexOf('.') === -1 || value.length < 5) {
         event.target.className = 'form-control is-invalid';
-   } else {
-       event.target.className = 'form-control is-valid';
+} else {
+    event.target.className = 'form-control is-valid';
     }
     habilitarBoton()
 }
 
+}
+
 
 export default contactController;
+ 
